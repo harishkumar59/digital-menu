@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Dakshin Flavors - Authentic South Indian Restaurant. Browse our digital menu, order delicious dosas, idlis, meals and more right from your table.">
+  <meta name="theme-color" content="#2D7A3A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Dakshin Flavors | Authentic South Indian Cuisine</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍛</text></svg>">
+</head>
+<body>
+
+  <!-- ===== TABLE NUMBER MODAL ===== -->
+  <div class="table-modal-overlay" id="table-modal">
+    <div class="table-modal">
+      <div class="table-modal-icon">🪑</div>
+      <h2>Welcome!</h2>
+      <p>Please enter your table number to start ordering</p>
+      <div class="table-input-group">
+        <input type="number" id="table-number-input" placeholder="e.g. 5" min="1" max="99" autofocus>
+      </div>
+      <button class="table-submit-btn" id="table-submit-btn">
+        Start Ordering →
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header" id="app-header">
+    <div class="header-content">
+      <div class="header-logo">
+        <div class="header-logo-icon">🍛</div>
+        <div class="header-logo-text">
+          Dakshin Flavors
+          <span>Since 1985</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="header-table-badge" id="header-table-badge">🪑 Table -</div>
+        <button class="header-cart-btn" onclick="openCart()" aria-label="Open cart">
+          🛒
+          <span class="cart-badge hidden" id="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== HOME PAGE ===== -->
+    <div class="page-section active" id="page-home">
+
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero">
+        <img class="hero-image" src="images/hero.png" alt="Authentic South Indian cuisine on a banana leaf">
+        <div class="hero-overlay">
+          <div class="hero-badge">✨ QR Digital Menu</div>
+          <h1 class="hero-title">Dakshin Flavors</h1>
+          <p class="hero-tagline">Authentic South Indian Taste</p>
+          <div class="hero-buttons">
+            <button class="hero-btn hero-btn-primary" onclick="navigateTo('menu')">
+              <span class="btn-icon">📋</span> View Menu
+            </button>
+            <button class="hero-btn hero-btn-secondary" onclick="navigateTo('menu')">
+              <span class="btn-icon">🍽️</span> Order Now
+            </button>
+            <button class="hero-btn hero-btn-call" onclick="callWaiter()">
+              <span class="btn-icon">🔔</span> Call Waiter
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Today's Specials -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Today's Specials</h2>
+          <p class="section-subtitle">Limited time offers, grab them now!</p>
+        </div>
+        <span class="section-link" onclick="navigateTo('menu')">View All →</span>
+      </div>
+      <div class="specials-scroll" id="specials-scroll"></div>
+
+      <!-- Quick Categories Preview -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Explore Menu</h2>
+          <p class="section-subtitle">Find your favorite South Indian dish</p>
+        </div>
+      </div>
+      <div class="specials-scroll" style="padding-bottom: 24px;">
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('breakfast'), 300);" style="background: linear-gradient(135deg, #FF6F00, #E65100); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">🌅</div>
+          <h3 style="font-size: 16px;">Breakfast</h3>
+          <p class="special-desc" style="font-size: 12px;">Idli, Vada, Dosa & more</p>
+        </div>
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('tiffins'), 300);" style="background: linear-gradient(135deg, #1565C0, #0D47A1); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">🥞</div>
+          <h3 style="font-size: 16px;">Tiffins</h3>
+          <p class="special-desc" style="font-size: 12px;">Poori, Uttapam & more</p>
+        </div>
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('meals'), 300);" style="background: linear-gradient(135deg, #2E7D32, #1B5E20); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">🍛</div>
+          <h3 style="font-size: 16px;">Meals</h3>
+          <p class="special-desc" style="font-size: 12px;">Full Meals & Rice Items</p>
+        </div>
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('snacks'), 300);" style="background: linear-gradient(135deg, #6A1B9A, #4A148C); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">🍿</div>
+          <h3 style="font-size: 16px;">Snacks</h3>
+          <p class="special-desc" style="font-size: 12px;">Bonda, Bajji & more</p>
+        </div>
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('beverages'), 300);" style="background: linear-gradient(135deg, #4E342E, #3E2723); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">☕</div>
+          <h3 style="font-size: 16px;">Beverages</h3>
+          <p class="special-desc" style="font-size: 12px;">Coffee, Tea & Juice</p>
+        </div>
+        <div class="special-card" onclick="navigateTo('menu'); setTimeout(()=>switchCategory('desserts'), 300);" style="background: linear-gradient(135deg, #C62828, #B71C1C); min-width: 160px; padding: 20px;">
+          <div style="font-size: 40px; margin-bottom: 8px;">🍮</div>
+          <h3 style="font-size: 16px;">Desserts</h3>
+          <p class="special-desc" style="font-size: 12px;">Payasam, Kesari & more</p>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <section class="about-section" id="about">
+        <div class="about-icon">🏛️</div>
+        <h2>About Dakshin Flavors</h2>
+        <p>We serve authentic South Indian cuisine made with traditional recipes, fresh ingredients, and homemade spices. Our goal is to bring the true taste of South India to every plate. From the aroma of freshly brewed filter coffee to the sizzle of a perfectly crispy dosa — every detail is crafted with love and tradition.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-icon">🌿</div>
+            <h4>Fresh Ingredients</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">👨‍🍳</div>
+            <h4>Expert Chefs</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🧈</div>
+            <h4>Pure Ghee</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">💚</div>
+            <h4>Veg Friendly</h4>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact-section" id="contact">
+        <h2>📍 Visit Us</h2>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <div class="contact-label">Address</div>
+              <div class="contact-value">42, MG Road, Opp. City Park,<br>Bangalore, Karnataka 560001</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <div class="contact-label">Phone</div>
+              <div class="contact-value">+91 98765 43210</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-text">
+              <div class="contact-label">Opening Hours</div>
+              <div class="contact-value">Mon - Sun: 6:00 AM - 10:30 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Maps -->
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.985594604477!2d77.60649471482215!3d12.972442990853854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sMG%20Road%2C%20Bengaluru!5e0!3m2!1sen!2sin!4v1678886400000!5m2!1sen!2sin" 
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Restaurant location on Google Maps">
+          </iframe>
+        </div>
+
+        <!-- Review Box -->
+        <div class="review-box">
+          <h3>Leave a Review ⭐</h3>
+          <div class="review-form">
+            <div class="review-stars">
+              <span class="review-star" data-rating="1">★</span>
+              <span class="review-star" data-rating="2">★</span>
+              <span class="review-star" data-rating="3">★</span>
+              <span class="review-star" data-rating="4">★</span>
+              <span class="review-star" data-rating="5">★</span>
+            </div>
+            <textarea class="review-textarea" id="review-textarea" placeholder="Tell us about your experience..."></textarea>
+            <button class="review-submit-btn" onclick="submitReview()">Submit Review</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== MENU PAGE ===== -->
+    <div class="page-section" id="page-menu">
+
+      <!-- Category Tabs -->
+      <div class="category-tabs-container">
+        <div class="category-tabs">
+          <button class="category-tab active" data-cat="all">🍽️ All</button>
+          <button class="category-tab" data-cat="breakfast">🌅 Breakfast</button>
+          <button class="category-tab" data-cat="tiffins">🥞 Tiffins</button>
+          <button class="category-tab" data-cat="meals">🍛 Meals</button>
+          <button class="category-tab" data-cat="snacks">🍿 Snacks</button>
+          <button class="category-tab" data-cat="beverages">☕ Beverages</button>
+          <button class="category-tab" data-cat="desserts">🍮 Desserts</button>
+        </div>
+      </div>
+
+      <!-- Today's Specials in Menu Page -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🔥 Today's Specials</h2>
+          <p class="section-subtitle">Limited time offers!</p>
+        </div>
+      </div>
+      <div class="specials-scroll" id="specials-scroll-menu"></div>
+
+      <!-- Menu Items -->
+      <div class="menu-section">
+        <div id="menu-items-container"></div>
+      </div>
+    </div>
+
+    <!-- ===== ABOUT PAGE ===== -->
+    <div class="page-section" id="page-about">
+      <section class="about-section" style="margin-top: 16px;">
+        <div class="about-icon">🏛️</div>
+        <h2>Our Story</h2>
+        <p>Founded in 1985, Dakshin Flavors has been serving authentic South Indian cuisine for over 40 years. What started as a small tiffin center has grown into a beloved restaurant, known for its commitment to traditional recipes and fresh ingredients.</p>
+        <br>
+        <p>We serve authentic South Indian cuisine made with traditional recipes, fresh ingredients, and homemade spices. Our goal is to bring the true taste of South India to every plate. From the aroma of freshly brewed filter coffee to the sizzle of a perfectly crispy dosa — every detail is crafted with love and tradition.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="feature-icon">🌿</div>
+            <h4>Fresh Ingredients</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">👨‍🍳</div>
+            <h4>Expert Chefs</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">🧈</div>
+            <h4>Pure Ghee</h4>
+          </div>
+          <div class="about-feature">
+            <div class="feature-icon">💚</div>
+            <h4>Veg Friendly</h4>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <h2>📍 Contact & Location</h2>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <div class="contact-label">Address</div>
+              <div class="contact-value">42, MG Road, Opp. City Park,<br>Bangalore, Karnataka 560001</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <div class="contact-label">Phone</div>
+              <div class="contact-value">+91 98765 43210</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-text">
+              <div class="contact-label">Opening Hours</div>
+              <div class="contact-value">Mon - Sun: 6:00 AM - 10:30 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.985594604477!2d77.60649471482215!3d12.972442990853854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sMG%20Road%2C%20Bengaluru!5e0!3m2!1sen!2sin!4v1678886400000!5m2!1sen!2sin" 
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Restaurant location on Google Maps">
+          </iframe>
+        </div>
+        <div class="review-box">
+          <h3>Leave a Review ⭐</h3>
+          <div class="review-form">
+            <div class="review-stars">
+              <span class="review-star">★</span>
+              <span class="review-star">★</span>
+              <span class="review-star">★</span>
+              <span class="review-star">★</span>
+              <span class="review-star">★</span>
+            </div>
+            <textarea class="review-textarea" placeholder="Tell us about your experience..."></textarea>
+            <button class="review-submit-btn" onclick="submitReview()">Submit Review</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ===== DISH DETAIL MODAL ===== -->
+  <div class="dish-detail-overlay" id="dish-detail-overlay">
+    <div class="dish-detail-modal">
+      <div class="dish-detail-image-wrap">
+        <img class="dish-detail-image" src="" alt="">
+        <button class="dish-detail-close" onclick="closeDishDetail()" aria-label="Close">✕</button>
+        <div class="dish-detail-veg-badge">
+          <div class="veg-dot veg"></div>
+          <span class="veg-text">Pure Veg</span>
+        </div>
+      </div>
+      <div class="dish-detail-body">
+        <h2 class="dish-detail-name"></h2>
+        <p class="dish-detail-desc"></p>
+
+        <div class="spice-indicator">
+          <label>🌶️ Spice Level:</label>
+          <span class="spice-label-text">Mild</span>
+          <div class="spice-levels">
+            <div class="spice-level"></div>
+            <div class="spice-level"></div>
+            <div class="spice-level"></div>
+          </div>
+        </div>
+
+        <h3 class="dish-detail-section-title">Ingredients</h3>
+        <div class="ingredients-list"></div>
+      </div>
+      <div class="dish-detail-footer">
+        <span class="dish-detail-price"></span>
+        <button class="dish-add-order-btn">
+          🛒 Add to Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h2>🛒 Your Order</h2>
+      <button class="cart-close-btn" onclick="closeCart()" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-table-info" id="cart-table-info">
+      <span class="table-icon">🪑</span>
+      Order for <strong>Table -</strong>
+    </div>
+    <div class="cart-items-list" id="cart-items-list">
+      <div class="cart-empty">
+        <div class="empty-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Add some delicious items from our menu!</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;"></div>
+  </div>
+
+  <!-- ===== ORDER CONFIRMATION ===== -->
+  <div class="order-confirm-overlay" id="order-confirm-overlay">
+    <div class="order-confirm-card">
+      <div class="order-confirm-icon">✓</div>
+      <h2>Order Placed!</h2>
+      <p>Your order has been sent to the kitchen. Sit back and relax — your food will be ready shortly!</p>
+      <div class="order-confirm-details">
+        <div class="detail-row">
+          <span>Order ID</span>
+          <strong class="order-id">#ORD000</strong>
+        </div>
+        <div class="detail-row">
+          <span>Table</span>
+          <strong class="order-table">Table -</strong>
+        </div>
+        <div class="detail-row">
+          <span>Items</span>
+          <strong class="order-items-count">0 items</strong>
+        </div>
+        <div class="detail-row">
+          <span>Total</span>
+          <strong class="order-total">₹0</strong>
+        </div>
+      </div>
+      <button class="order-confirm-btn" onclick="closeOrderConfirm()">
+        Back to Menu
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM NAVIGATION ===== -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-content">
+      <button class="bottom-nav-item active" data-page="home" aria-label="Home">
+        <span class="nav-icon">🏠</span>
+        Home
+      </button>
+      <button class="bottom-nav-item" data-page="menu" aria-label="Menu">
+        <span class="nav-icon">📋</span>
+        Menu
+      </button>
+      <button class="bottom-nav-item" data-page="about" aria-label="About">
+        <span class="nav-icon">ℹ️</span>
+        About
+      </button>
+    </div>
+  </nav>
+
+  <script src="app.js"></script>
+
+  <!-- Duplicate specials to menu page -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const mainSpecials = document.getElementById('specials-scroll');
+        const menuSpecials = document.getElementById('specials-scroll-menu');
+        if (mainSpecials && menuSpecials) {
+          menuSpecials.innerHTML = mainSpecials.innerHTML;
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>
