@@ -380,7 +380,6 @@ const state = {
   tableNumber: null,
   cart: [],
   activeCategory: 'all',
-  activePage: 'home',
   reviewRating: 0
 };
 
@@ -416,13 +415,15 @@ function handleTableSubmit() {
   if (!val) {
     input.style.borderColor = '#C62828';
     input.placeholder = 'Please enter a number';
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 500);
     return;
   }
   state.tableNumber = val;
   sessionStorage.setItem('tableNumber', val);
   hideTableModal();
   updateTableBadge();
-  showToast('🪑 Table ' + val + ' selected');
+  showToast('🪑 Table ' + val + ' — Browse our menu & place your order!');
 }
 
 function hideTableModal() {
@@ -793,21 +794,11 @@ function closeDishDetail() {
   document.body.style.overflow = '';
 }
 
-// ===== Page Navigation =====
-function navigateTo(page) {
-  state.activePage = page;
-  $$('.page-section').forEach(p => p.classList.remove('active'));
-  const target = $(`#page-${page}`);
-  if (target) target.classList.add('active');
-
-  $$('.bottom-nav-item').forEach(n => n.classList.remove('active'));
-  const activeNav = $(`.bottom-nav-item[data-page="${page}"]`);
-  if (activeNav) activeNav.classList.add('active');
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  if (page === 'menu') {
-    renderMenu(state.activeCategory);
+// ===== Scroll to section =====
+function scrollToSection(sectionId) {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -914,11 +905,6 @@ function setupEventListeners() {
   // Category tabs
   $$('.category-tab').forEach(tab => {
     tab.addEventListener('click', () => switchCategory(tab.dataset.cat));
-  });
-
-  // Bottom nav
-  $$('.bottom-nav-item').forEach(nav => {
-    nav.addEventListener('click', () => navigateTo(nav.dataset.page));
   });
 
   // Review stars
